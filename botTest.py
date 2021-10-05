@@ -62,6 +62,19 @@ async def wc(ctx, worldNum):
     f.close()
     os.remove("data.txt")
 
+@bot.command(description="Finds what world a specific player is on.")
+async def findPlayer(ctx, player):
+    worldData = requests.get(apiWl).json()
+    for i in worldData:
+      dataTest = str(worldData[i])
+      dataTest = dataTest.lower()
+
+      # checks if the player is in that world. if so, then it says which world.
+      if dataTest.__contains__("'" + player.lower() + "'"):
+        await ctx.send("```" + "The user " + player + " is on " + i + "." + "```")
+        userOnline = 1
+        break
+
 @bot.command(description="Searches ingredients by name.")
 async def ing(ctx, ingredient):
     results = ""
