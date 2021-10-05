@@ -12,7 +12,7 @@ token = os.getenv("TESTING_TOKEN")
 apiWl = "https://api.wynncraft.com/public_api.php?action=onlinePlayers"
 apiSearch = "https://api.wynncraft.com/v2/ingredient/search/name/"
 apiLeaderboard = "https://api.wynncraft.com/public_api.php?action=statsLeaderboard&type=player&timeframe=alltime"
-
+apiPlayer = "https://api.wynncraft.com/v2/player/"
 
 bot = commands.Bot(command_prefix='$$')
 
@@ -62,7 +62,7 @@ async def wc(ctx, worldNum):
     f.close()
     os.remove("data.txt")
 
-@bot.command(description="Finds what world a specific player is on.")
+@bot.command(description="Finds what world a specified player is on.")
 async def findPlayer(ctx, player):
     worldData = requests.get(apiWl).json()
     for i in worldData:
@@ -74,6 +74,21 @@ async def findPlayer(ctx, player):
         await ctx.send("```" + "The user " + player + " is on " + i + "." + "```")
         userOnline = 1
         break
+
+@bot.command(description="Finds what guild a specified player is in.")
+async def gfind(ctx, player):
+    link = apiPlayer + player + "/stats"
+    print(link)
+    playerData = requests.get(link).json()
+    print(playerData)
+    if playerData['data'][0]['guild']['name'] == "Titans Valor":
+        await ctx.send("```Player " + player + " is an ANOid!```")
+    elif playerData['data'][0]['guild']['name'] == "Profession Heaven":
+        await ctx.send("```Player " + player + " is a proffa!```")
+    elif playerData['data'][0]['guild']['name'] == "Emorians":
+        await ctx.send("```Player " + player + " is an emo ryan!```")
+    else:
+        await ctx.send("```" + "Player " + player + " is a member of the " + playerData['data'][0]['guild']['name'] + " Guild, with the " + playerData['data'][0]['guild']['rank'] + " Rank." + "```")
 
 @bot.command(description="Searches ingredients by name.")
 async def ing(ctx, ingredient):
