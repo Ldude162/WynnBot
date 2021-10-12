@@ -7,14 +7,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-token = os.getenv("DISCORD_TOKEN")
+token = os.getenv("TESTING_TOKEN")
 
 apiWl = "https://api.wynncraft.com/public_api.php?action=onlinePlayers"
 apiSearch = "https://api.wynncraft.com/v2/ingredient/search/name/"
 apiLeaderboard = "https://api.wynncraft.com/public_api.php?action=statsLeaderboard&type=player&timeframe=alltime"
+apiPlayer = "https://api.wynncraft.com/v2/player/"
 
 
-bot = commands.Bot(command_prefix='..')
+bot = commands.Bot(command_prefix='$$')
 
 
 @bot.event
@@ -111,7 +112,20 @@ async def xp(ctx):
     await ctx.send("```" + "Total XP Leaderboard: \n" + xpStore.read() + "```")
     xpStore.close()
     os.remove("xpstore.txt")
-    
 
+@bot.command(description="Displays the stats of a specified player's classes.")
+async def classes(ctx, player):
+    link = apiPlayer + player + "/stats"
+    playerData = requests.get(link).json()
+    f = open("playerData.txt", "x")
+    f.close()
+    for i in playerData['data'][0]['classes']:
+        f = open("playerData.txt", "a")
+        f.write("Name: " + i['name'] + "\n Total Level: " + str(i['level']) + "\n Combat level: " + str(i['professions']['combat']['level']) + "\n ---\n")
+        f.close()
+    f = open("playerData.txt", "r")
+    await ctx.send("```" + f.read() + "```")
+    f.close()
+    os.remove("playerData.txt")
 
 bot.run(token)
