@@ -14,12 +14,13 @@ apiSearch = "https://api.wynncraft.com/v2/ingredient/search/name/"
 apiLeaderboard = "https://api.wynncraft.com/public_api.php?action=statsLeaderboard&type=player&timeframe=alltime"
 apiPlayer = "https://api.wynncraft.com/v2/player/"
 
+
 bot = commands.Bot(command_prefix='$$')
 
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game('Use $$help for a list of commands!'))
+    await bot.change_presence(activity=discord.Game('Use ..help for a list of commands!'))
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
@@ -61,34 +62,6 @@ async def wc(ctx, worldNum):
     await ctx.send("```" + f.read() + '```')
     f.close()
     os.remove("data.txt")
-
-@bot.command(description="Finds what world a specified player is on.")
-async def findPlayer(ctx, player):
-    worldData = requests.get(apiWl).json()
-    for i in worldData:
-      dataTest = str(worldData[i])
-      dataTest = dataTest.lower()
-
-      # checks if the player is in that world. if so, then it says which world.
-      if dataTest.__contains__("'" + player.lower() + "'"):
-        await ctx.send("```" + "The user " + player + " is on " + i + "." + "```")
-        userOnline = 1
-        break
-
-@bot.command(description="Finds what guild a specified player is in.")
-async def gfind(ctx, player):
-    link = apiPlayer + player + "/stats"
-    print(link)
-    playerData = requests.get(link).json()
-    print(playerData)
-    if playerData['data'][0]['guild']['name'] == "Titans Valor":
-        await ctx.send("```Player " + player + " is an ANOid!```")
-    elif playerData['data'][0]['guild']['name'] == "Profession Heaven":
-        await ctx.send("```Player " + player + " is a proffa!```")
-    elif playerData['data'][0]['guild']['name'] == "Emorians":
-        await ctx.send("```Player " + player + " is an emo ryan!```")
-    else:
-        await ctx.send("```" + "Player " + player + " is a member of the " + playerData['data'][0]['guild']['name'] + " Guild, with the " + playerData['data'][0]['guild']['rank'] + " Rank." + "```")
 
 @bot.command(description="Searches ingredients by name.")
 async def ing(ctx, ingredient):
@@ -139,6 +112,26 @@ async def xp(ctx):
     await ctx.send("```" + "Total XP Leaderboard: \n" + xpStore.read() + "```")
     xpStore.close()
     os.remove("xpstore.txt")
+
+@bot.command(description="Displays the stats of a specified player's classes.")
+async def classes(ctx, player):
+    link = apiPlayer + player + "/stats"
+    playerData = requests.get(link).json()
+    f = open("playerData.txt", "x")
+    f.close()
+    for i in playerData['data'][0]['classes']:
+        f = open("playerData.txt", "a")
+        f.write("Name: " + i['name'] + "\n Total Level: " + str(i['level']) + "\n Combat level: " + str(i['professions']['combat']['level']) + "\n ---\n")
+        f.close()
+    f = open("playerData.txt", "r")
+    await ctx.send("```" + f.read() + "```")
+    f.close()
+    os.remove("playerData.txt")
+
+
+
+
+
     
 
 
