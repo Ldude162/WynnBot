@@ -15,12 +15,12 @@ apiLeaderboard = "https://api.wynncraft.com/public_api.php?action=statsLeaderboa
 apiPlayer = "https://api.wynncraft.com/v2/player/"
 
 
-bot = commands.Bot(command_prefix='$$')
+bot = commands.Bot(command_prefix='..')
 
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game('Use $$help for a list of commands!'))
+    await bot.change_presence(activity=discord.Game('Use ..help for a list of commands!'))
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
