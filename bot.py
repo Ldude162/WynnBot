@@ -20,7 +20,7 @@ bot = commands.Bot(command_prefix='$$')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game('Use ..help for a list of commands!'))
+    await bot.change_presence(activity=discord.Game('Use $$help for a list of commands!'))
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
@@ -30,7 +30,11 @@ async def on_ready():
 async def wl(ctx):
     dataWl = requests.get(apiWl).json()
     print("..wl command was run!")
-    f = open("data.txt", "x")
+    try:
+        f = open("data.txt", "x")
+    except:
+        os.remove("data.txt")
+        f = open("data.txt", "x")
     f.close()
     for i in dataWl:
         world = ""
@@ -51,7 +55,11 @@ async def wc(ctx, worldNum):
     dataWl = requests.get(apiWl).json()
     print("..wc command with args:" + worldNum + " was run!")
     worldNum = "WC" + worldNum
-    f = open("data.txt", "x")
+    try:
+        f = open("data.txt", "x")
+    except:
+        os.remove("data.txt")
+        f = open("data.txt", "x")
     f.write("List of players on line in world " + worldNum + ":\n")
     f.close()
     for i in dataWl[worldNum]:
