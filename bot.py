@@ -136,6 +136,7 @@ async def classes(ctx, player):
     f.close()
     os.remove("playerData.txt")
 
+'''
 @bot.command(description="Shows the 10 most inactive players in Titans Valor")
 @commands.has_role("Titans Valor")
 async def inactiveplayers(ctx):
@@ -144,6 +145,6 @@ async def inactiveplayers(ctx):
     for i in data['members']:
         playerLink = apiPlayer + i[memberNum]['name'] + '/stats'
         playerData = requests.get(playerLink).json()
-        
+'''
 
 bot.run(token)
