@@ -13,7 +13,7 @@ apiWl = "https://api.wynncraft.com/public_api.php?action=onlinePlayers"
 apiSearch = "https://api.wynncraft.com/v2/ingredient/search/name/"
 apiLeaderboard = "https://api.wynncraft.com/public_api.php?action=statsLeaderboard&type=player&timeframe=alltime"
 apiPlayer = "https://api.wynncraft.com/v2/player/"
-
+apiValor = "https://api.wynncraft.com/public_api.php?action=guildStats&command=Titans%20Valor"
 
 bot = commands.Bot(command_prefix='$$')
 
@@ -135,5 +135,15 @@ async def classes(ctx, player):
     await ctx.send("```" + f.read() + "```")
     f.close()
     os.remove("playerData.txt")
+
+@bot.command(description="Shows the 10 most inactive players in Titans Valor")
+@commands.has_role("Titans Valor")
+async def inactiveplayers(ctx):
+    data = requests.get(apiValor).json()
+    memberNum = 0
+    for i in data['members']:
+        playerLink = apiPlayer + i[memberNum]['name'] + '/stats'
+        playerData = requests.get(playerLink).json()
+        
 
 bot.run(token)
