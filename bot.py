@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import requests
 import ast
+from datetime import datetime, timezone
+from dateutil import parser
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -136,15 +138,166 @@ async def classes(ctx, player):
     f.close()
     os.remove("playerData.txt")
 
-'''
+
 @bot.command(description="Shows the 10 most inactive players in Titans Valor")
 @commands.has_role("Titans Valor")
 async def inactiveplayers(ctx):
     data = requests.get(apiValor).json()
-    memberNum = 0
+    memberList = []
+    memberNumbers = []
     for i in data['members']:
-        playerLink = apiPlayer + i[memberNum]['name'] + '/stats'
+        playerLink = apiPlayer + i['uuid'] + '/stats'
         playerData = requests.get(playerLink).json()
-'''
+        dateTime = playerData['data'][0]['meta']['lastJoin']
+        dateTimeObject = parser.parse(dateTime)
+        currentTime = datetime.now(timezone.utc)
+        timedifference = currentTime - dateTimeObject
+        seconds_in_day = 24 * 60 * 60
+        timedifference2 = divmod(timedifference.days * seconds_in_day + timedifference.seconds, 60)
+        time = timedifference2[0] * 60 + timedifference2[1]
+        memberList.append(i['name'] + ': ' + str(time / 86400) + ' days')
+        memberNumbers.append(divmod(timedifference.days * seconds_in_day + timedifference.seconds, 60))
+    one = (0, 0)
+    two = (0, 0)
+    three = (0, 0)
+    four = (0, 0)
+    five = (0, 0)
+    six = (0, 0)
+    seven = (0, 0)
+    eight = (0, 0)
+    nine = (0, 0)
+    ten = (0, 0)
+    
+    for i in memberNumbers:
+        print(i[0] * 60 + i[1])
+        if i[0] * 60 + i[1] > one[0]:
+            two2 = one
+            three2 = two
+            four2 = three
+            five2 = four
+            six2 = five
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            one = (i[0] * 60 + i[1], memberNumbers.index(i))
+            two = two2
+            three = three2
+            four = four2
+            five = five2
+            six = six2
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > two[0]:
+            three2 = two
+            four2 = three
+            five2 = four
+            six2 = five
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            two2 = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            three = three2
+            four = four2
+            five = five2
+            six = six2
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > three[0]:
+            four2 = three
+            five2 = four
+            six2 = five
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            three = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            four = four2
+            five = five2
+            six = six2
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > four[0]:
+            five2 = four
+            six2 = five
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            four = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            five = five2
+            six = six2
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > five[0]:
+            six2 = five
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            five = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            
+            six = six2
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > six[0]:
+            seven2 = six
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            six = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            
+            seven = seven2
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > seven[0]:
+            eight2 = seven
+            nine2 = eight
+            ten2 = nine
+            seven = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            
+            eight =eight2
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > eight[0]:
+            nine2 = eight
+            ten2 = nine
+            eight = (i[0] * 60 + i[1], memberNumbers.index(i))
+            
+            
+            nine = nine2
+            ten = ten2
+        elif i[0] * 60 + i[1] > nine[0]:
+            ten2 = nine
+            nine = (i[0] * 60 + i[1], memberNumbers.index(i))
+            ten = ten2
+            
+        elif i[0] * 60 + i[1] > ten[0]:
+            ten = (i[0] * 60 + i[1], memberNumbers.index(i))
+    print(one, two, three, four, five, six, seven, eight, nine, ten)
+    print(memberList[one[1]], memberList[two[1]], memberList[three[1]], memberList[four[1]], memberList[five[1]], memberList[six[1]], memberList[seven[1]], memberList[eight[1]], memberList[nine[1]], memberList[ten[1]])
 
 bot.run(token)
