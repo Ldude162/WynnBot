@@ -1,0 +1,5 @@
+requests
+datetime
+discord.py
+python-dateutil
+python-dotenv
