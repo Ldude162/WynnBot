@@ -33,3 +33,6 @@ jobs:
           push: true
           tags: beta
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: 
+            DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+            TESTING_TOKEN=${{ secrets.TESTING_TOKEN }}
