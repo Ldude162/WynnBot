@@ -33,5 +33,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: 
-            "TESTING_TOKEN=${{ secrets.TESTING_TOKEN }}"
+          env: 
+            ${{ secrets.TESTING_TOKEN }}
