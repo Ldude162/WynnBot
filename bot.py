@@ -308,4 +308,26 @@ async def inactiveplayers(ctx):
     print(one, two, three, four, five, six, seven, eight, nine, ten)
     print(memberList[one[1]], memberList[two[1]], memberList[three[1]], memberList[four[1]], memberList[five[1]], memberList[six[1]], memberList[seven[1]], memberList[eight[1]], memberList[nine[1]], memberList[ten[1]])
     await ctx.send("```Top 10 most inactive people: \n" + memberList[one[1]] + "\n --- \n" + memberList[two[1]] + "\n --- \n" + memberList[three[1]] + "\n --- \n" + memberList[four[1]] + "\n --- \n" + memberList[five[1]] + "\n --- \n" + memberList[six[1]] + "\n --- \n" + memberList[seven[1]] + "\n --- \n" + memberList[eight[1]] + "\n --- \n" + memberList[nine[1]] + "\n --- \n" + memberList[ten[1]] + "```")
+
+# Checks how many people are online in the guild
+@bot.command(description="Checks how many people are online in the guild")
+@commands.has_role("Titans Valor")
+async def online(ctx):
+    f = open('data.txt', 'x')
+    f.close()
+    guildData = requests.get(apiValor).json()
+    worldData = requests.get(apiWl).json()
+    for i in guildData['members']:
+        if str(worldData).__contains__(i['name']):
+            f = open('data.txt', 'a')
+            f.write(i['name'] + "\n")
+            f.close()
+    
+    f = open('data.txt', 'r')
+    await ctx.send("```" + str(len(open('data.txt').readlines())) + " are online in the guild. They are:\n" + f.read() + "```")
+    os.remove('data.txt')
+
+            
+
+
 bot.run(token)
