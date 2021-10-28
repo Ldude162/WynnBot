@@ -27,6 +27,7 @@ jobs:
     - name: Build
       uses: docker/build-push-action@v2
       with:
+        push: true
         tags: thezeldaboi/wynnbot:beta
         secrets: |
             TESTING_TOKEN=${{ secrets.TESTING_TOKEN }}"
