@@ -40,5 +40,7 @@ jobs:
         port: 22
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
+          docker stop beta
+          docker rm beta
           docker pull thezeldaboi/wynnbot:beta
           docker run -d --name beta thezeldaboi/wynnbot:beta
