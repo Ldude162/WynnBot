@@ -31,3 +31,14 @@ jobs:
         build-args: |
             TESTING=${{ secrets.TESTING_TOKEN }}
             DISCORD=${{ secrets.DISCORD_TOKEN }}
+            
+    - name: Start SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ubuntu
+        port: 22
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          docker pull thezeldaboi/wynnbot:beta
+          docker run -d --name beta thezeldaboi/wynnbot:beta
