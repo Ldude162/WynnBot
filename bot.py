@@ -332,7 +332,7 @@ async def online(ctx):
             elif i['rank'] == "RECRUITER":
                 stars = "*"
             else:
-                stars = ""
+                stars = "test"
             f.write(stars + i['name'] + "\n")
             f.close()
     
