@@ -10,4 +10,5 @@ RUN echo $DISCORD
 RUN echo $TESTING
 RUN echo $TESTING_TOKEN
 RUN echo $DISCORD_TOKEN
+CMD echo $TESTING_TOKEN
 CMD python bot.py
