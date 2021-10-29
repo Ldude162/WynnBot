@@ -323,7 +323,7 @@ async def online(ctx):
             f = open('data.txt', 'a')
             if i['rank'] == "OWNER":
                 stars = "*****"
-            elif i['rank'] == "CHEIF":
+            elif i['rank'] == "CHIEF":
                 stars = "****"
             elif i['rank'] == "STRATEGIST":
                 stars = "***"
