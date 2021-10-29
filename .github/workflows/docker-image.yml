@@ -29,6 +29,6 @@ jobs:
       with:
         push: true
         tags: thezeldaboi/wynnbot:beta
-        args: |
+        build-args: |
             TESTING_TOKEN=${{ secrets.TESTING_TOKEN }}
             DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
