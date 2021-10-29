@@ -3,6 +3,8 @@ name: Publish Docker image
 on:
   release:
     types: [published]
+  push:
+    branches: [beta]
 
 jobs:
   push_to_registry:
@@ -29,5 +31,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: beta
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: 
+            DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+            TESTING_TOKEN=${{ secrets.TESTING_TOKEN }}

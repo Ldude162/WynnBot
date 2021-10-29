@@ -1,4 +1,2 @@
 # ignore bot tokens
 .env
-# ignore dockerfile
-dockerfile
