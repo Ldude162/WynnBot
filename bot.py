@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-token = os.getenv("INPUT_TESTING_TOKEN")
+token = os.environ['TESTING_TOKEN']
 
 apiWl = "https://api.wynncraft.com/public_api.php?action=onlinePlayers"
 apiSearch = "https://api.wynncraft.com/v2/ingredient/search/name/"
