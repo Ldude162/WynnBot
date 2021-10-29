@@ -1,3 +1,4 @@
+#import stuff
 import discord
 from discord.ext import commands
 import os
@@ -320,7 +321,19 @@ async def online(ctx):
     for i in guildData['members']:
         if str(worldData).__contains__(i['name']):
             f = open('data.txt', 'a')
-            f.write(i['name'] + "\n")
+            if i['rank'] == "OWNER":
+                stars = "*****"
+            elif i['rank'] == "CHIEF":
+                stars = "****"
+            elif i['rank'] == "STRATEGIST":
+                stars = "***"
+            elif i['rank'] == "CAPTAIN":
+                stars = "**"
+            elif i['rank'] == "RECRUITER":
+                stars = "*"
+            else:
+                stars = ""
+            f.write(stars + i['name'] + "\n")
             f.close()
     
     f = open('data.txt', 'r')
