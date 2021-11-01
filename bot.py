@@ -343,6 +343,7 @@ async def online(ctx):
 @bot.command(description="Checks what position a player is in on the woodcutting leaderboard")
 async def woodcut(ctx, player):
   apiLink = apiPlayer + player + '/stats'
+  await ctx.send(apiLink)
   playerData = requests.get(apiLink).json()
   leaderboardSpot = playerData['data']['ranking']['player']['solo']['woodcutting']
   if leaderboardSpot == null:
