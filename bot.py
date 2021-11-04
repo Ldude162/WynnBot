@@ -346,7 +346,7 @@ async def woodcut(ctx, player):
   await ctx.send(apiLink)
   playerData = requests.get(apiLink).json()
   leaderboardSpot = playerData['data']['ranking']['player']['solo']['woodcutting']
-  if leaderboardSpot == null:
+  if leaderboardSpot == 'null':
     await ctx.send(player + ' is not on the woodcutting leaderboard.')
   else:
     await ctx.send(player + ' is position ' + leaderboardSpot + ' on the woodcutting leaderboard.')
