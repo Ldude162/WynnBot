@@ -344,7 +344,7 @@ async def online(ctx):
 async def guildcheck(ctx, player):
   apiLink = apiPlayer + player + '/stats'
   playerData = requests.get(apiLink).json()
-  await ctx.send(player + ' is a ' + playerData['data']['guild']['rank'] + ' of the guild ' + playerData['data']['guild']['name'])
+  await ctx.send(player + ' is a ' + playerData['data'][0]['guild']['rank'] + ' of the guild ' + playerData['data'][0]['guild']['name'])
 
 
 bot.run(token)
