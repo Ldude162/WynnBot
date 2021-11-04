@@ -340,7 +340,11 @@ async def online(ctx):
     await ctx.send("```" + str(len(open('data.txt').readlines())) + " are online in the guild. They are:\n" + f.read() + "```")
     os.remove('data.txt')
 
-            
+@bot.command(description="Checks what guild a player is in")
+async def guildcheck(ctx, player):
+  apiLink = apiPlayer + player + '/stats'
+  playerData = requests.get(apiLink).json()
+  await ctx.send(player + ' is a ' + playerData['data'][0]['guild']['rank'] + ' of the guild ' + playerData['data'][0]['guild']['name'])
 
 
 bot.run(token)
