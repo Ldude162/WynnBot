@@ -340,16 +340,11 @@ async def online(ctx):
     await ctx.send("```" + str(len(open('data.txt').readlines())) + " are online in the guild. They are:\n" + f.read() + "```")
     os.remove('data.txt')
 
-@bot.command(description="Checks what position a player is in on the woodcutting leaderboard")
-async def woodcut(ctx, player):
+@bot.command(description="Checks what guild a player is in")
+async def guildcheck(ctx, player):
   apiLink = apiPlayer + player + '/stats'
-  await ctx.send(apiLink)
   playerData = requests.get(apiLink).json()
-  leaderboardSpot = playerData['data']['ranking']['player']['solo']['woodcutting']
-  if leaderboardSpot == 'null':
-    await ctx.send(player + ' is not on the woodcutting leaderboard.')
-  else:
-    await ctx.send(player + ' is position ' + leaderboardSpot + ' on the woodcutting leaderboard.')
+  await ctx.send(player + ' is a ' + playerData['data']['guild']['rank'] + ' of the guild ' + playerData['data']['guild']['name'])
 
 
 bot.run(token)
