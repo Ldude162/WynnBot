@@ -353,6 +353,7 @@ async def world(ctx, player):
         if i == 'request':
             continue
         for a in i:
+            await ctx.send(a)
             if i == player:
                 await ctx.send(player + ' is in the world ' + a)
 
