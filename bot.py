@@ -346,5 +346,21 @@ async def guildcheck(ctx, player):
   playerData = requests.get(apiLink).json()
   await ctx.send(player + ' is a ' + playerData['data'][0]['guild']['rank'] + ' of the guild ' + playerData['data'][0]['guild']['name'])
 
+'''
+@bot.command(description="Checks what world a player is in")
+async def world(ctx, player):
+    data = requests.get(apiWl).json()
+    for i in data:
+        if i == 'request':
+            continue
+        for a in i:
+            await ctx.send(a)
+            if i == player:
+                await ctx.send(player + ' is in the world ' + a)
+'''
+
+@bot.command(description="hi")
+async def linusneedstomakethisacommand(ctx):
+    await ctx.send("ok lmao")
 
 bot.run(token)
