@@ -31,8 +31,7 @@ jobs:
         build-args: |
             TESTING=${{ secrets.TESTING_TOKEN }}
             DISCORD=${{ secrets.DISCORD_TOKEN }}
-            
-            
+              
     
       
       
