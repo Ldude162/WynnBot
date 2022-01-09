@@ -358,10 +358,6 @@ async def world(ctx, player):
             if i == player:
                 await ctx.send(player + ' is in the world ' + a)
 
-@bot.command(description="Shows what a player's playtime is")
-async def pt(ctx, player):
-    data = requests.get(apiPlayer + player + '/stats').json()
-    await ctx.send(player + ' has played Wynncraft ' + str(data['data'][0]['meta']['playtime']) + ' hours.')
 
 @bot.command(description="hi")
 async def linusneedstomakethisacommand(ctx):
